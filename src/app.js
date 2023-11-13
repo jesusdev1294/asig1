@@ -3,16 +3,16 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const app = express();
-const userRouter = require('./routes/user')
+const userRouter = require('./routes/user');
 
 app.use(bodyParser.json());
 app.use(cors({}));
 app.use(express.json());
 
 const port = 3000 || process.env.PORT;
-const mongoDb = process.env.MONGODB_URI || "mongodb://localhost:27017/testing"   ; 
-console.log('kdjfjdfjdjdj->>>>>>>>>>>>>>>>>>>', mongoDb )
-console.log('kdjfjdfjdjdj->>>>>>>>>>>>>>>>>>>', process.env.MONGODB_URI )
+const urlMongo =  "mongodb://localhost:27017/testing";
+const mongoDb = process.env.MONGODB_URI || urlMongo ; 
+
 app.use(userRouter);
 
 //mongodb

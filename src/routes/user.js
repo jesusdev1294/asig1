@@ -5,13 +5,11 @@ const router = express.Router();
 
 router.post('/users', async(req, res) => {
     try {
-        console.log(req.body)
-        const user = await createUser(req.body); 
-        console.log('routeeeer.<.<.<.<.<.<.<.<.<.<papapapapapapapappa',user);
+       
+        await createUser(req.body); 
         res.sendStatus(201);
 
     } catch(error) {
-        console.log('-------..........>error crear usuario',error);
         res.sendStatus(400);
     }
 })
@@ -19,7 +17,6 @@ router.post('/users', async(req, res) => {
 router.get('/users', async (req, res) => {
     try {
         const users = await findUsers();
-        console.log(users)
         res.status(201).send(users)
     } catch (error) {
         console.error(error);
@@ -29,8 +26,7 @@ router.get('/users', async (req, res) => {
 
 router.get('/users/:gender', async (req, res) => {
     try {
-        const gender= await findGender(req.params.gender);
-        console.log("---->",gender)
+        const gender = await findGender(req.params.gender);
         res.status(200).send(gender);
     } catch (error) {
         console.error(error);
@@ -39,24 +35,24 @@ router.get('/users/:gender', async (req, res) => {
 });
 
 
-// router.get('/users/:dni', async (req, res) => {
-//     try {
-//         const gender = await findGender(req.params.gender);
-//         console.log("---->",gender)
-//         res.send(200);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(400);
-//     }
-// });
-
-
 router.put('/users/:dni', async (req, res) => {
     try {
-        console.log(".,.,.,.,.,.,.,.,,..",req.params.dni,req.body)
-        const userDni = await updateUser(req.params.dni,req.body);
-        console.log("---->",userDni)
-        res.send(userDni);
+        const userUpdate = await updateUser(req.params.dni,req.body);
+        if(userUpdate!==null){
+            return res.sendStatus(200);
+
+        }
+        const body =  req.body
+        const dni = req.params.dni
+        const createdUser  = {
+            name: body.name,
+            dni: dni,
+            gender: body.gender,
+            email: body.email,
+            password: body.password,
+        }
+        await createUser(createdUser); 
+        res.sendStatus(201);
     } catch (error) {
         console.error(error);
         res.status(400);
@@ -67,13 +63,14 @@ router.put('/users/:dni', async (req, res) => {
 
 router.delete('/users/:dni', async (req, res) => {
     try {
-        console.log(".,.,.,.,.,.,.,.,,..",req.params.dni)
         const userDni = await deleteUser(req.params.dni);
-        console.log("---->",userDni)
-        res.send(userDni);
+        if(userDni.deletedCount > 0){
+            return res.sendStatus(200);
+        }
+        res.sendStatus(204);
     } catch (error) {
         console.error(error);
-        res.status(400);
+        res.sendStatus(400);
     }
 });
 

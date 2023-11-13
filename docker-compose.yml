@@ -1,20 +1,20 @@
 version: '3'
 services:
-  # app:
-  #   container_name: node-mongo-app
-  #   volumes:
-  #     - .:/app
-  #   restart: always
-  #   build: .
-  #   ports:
-  #     - '3000:3000'
-  #   environment:
-  #     MONGODB_URI: mongodb://mongo:27017/testing  
+  app:
+    container_name: node-mongo-app
+    volumes:
+      - .:/app
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/testing  
       
-  #   depends_on:
-  #     - mongo  
-  #   links:
-  #     - mongo
+    depends_on:
+      - mongo  
+    links:
+      - mongo
   mongo:
     container_name: mongo
     image: "mongo:latest"
@@ -24,56 +24,3 @@ services:
 
 
 
-# version: '3'
-# services:
-#   app:
-#     container_name: node-mongo-app
-#     volumes:
-#       - .:/app
-#     restart: always
-#     build: .
-#     ports:
-#       - '3000:3000'
-#     environment:
-#       MONGODB_URI: mongodb://mongo:27017/testing  
-      
-#     depends_on:
-#       - mongo  
-#     links:
-#       - mongo
-#   mongo:
-#     container_name: mongo
-#     image: "mongo:latest"
-#     restart: always 
-#     ports:
-#       - '27017:27017'
-
-
-
-
-# version: '3.9'
-
-# services:
-#   # Mongodb service
-#   mongo_db:
-#     container_name: db_container
-#     image: mongo:latest
-#     restart: always
-#     volumes:
-#       - mongo_data:/data/db
-
-#   # Node api service
-#   app:
-#     build: .
-#     ports:
-#       # local->container
-#       - 3000:3000
-#     environment:
-#     #   PORT: 3000
-#         MONGODB_URI: mongodb://mongo:27017
-#     #   DB_NAME: sample-db
-#     depends_on: 
-#       - mongo_db
-
-# volumes:
-#   mongo_data: {}
