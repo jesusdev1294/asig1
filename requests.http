@@ -1,0 +1,37 @@
+
+### Buscar todos los Usuarios
+
+GET http://localhost:3000/users
+
+
+### Guardar Usuario
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+ {
+  "name": "Alex",
+  "dni":"123",
+  "gender":"female",
+  "email": "alex@example.com",
+  "password": "password123"
+}
+
+### Actualizar Usuario
+
+PUT http://localhost:3000/users/123
+Content-Type: application/json
+
+ {
+  "name": "Alex",
+  "gender":"female",
+  "email": "alex@example.com",
+  "password": "password123"
+}
+
+### Buscar Usuario por genero
+GET http://localhost:3000/users/female
+
+
+### Borrar Un usuario 
+DELETE http://localhost:3000/users/123

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    container_name: node-mongo-app
+    volumes:
+      - .:/app
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/testing  
+      
+    depends_on:
+      - mongo  
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: "mongo:latest"
+    restart: always 
+    ports:
+      - '27017:27017'
+
+
+
